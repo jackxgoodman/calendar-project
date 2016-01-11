@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
+	 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css" type="text/css" rel="Stylesheet" />
+	
+	<meta charset="utf-8"/>
+	<title>Calendar</title>
+	<style type="text/css">
+	body{
+		width: 1000px; /* how wide to make your web page */
+		background-color: teal; /* what color to make the background */
+		margin: 0 auto;
+		padding: 0;
+		font:12px/16px Verdana, sans-serif; /* default font */
+	}
+	div#tool{
+		background-color: grey;
+		color:white;
+		margin: 0;
+		text-align:left;
+		padding: 5px;
+		font-size: 0.75em;
+	}
+	div#categories {
+		text-align: right;
+		font-size: 1.25em;
+	}
+	div#header {
+		background-color:black;
+		color:white;
+		text-align:center;
+		padding:10px;
+		display: block;
+		font-size: 2.5em;
+		font-weight: bold;
+	}
+	div#main{
+		background-color: #FFF;
+		margin: 0;
+		text-align:left;
+		padding: 10px;
+	}
+	div#month_buttons{
+		background-color: #FFF;
+		margin: 0;
+		text-align:left;
+		padding: 10px;
+	}
+	div#month{
+		background-color: #FFF;
+		margin: 0;
+		text-align:center;
+		padding: 10px;
+		display: block;
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+	div#edit_event_dialog{
+		display: none;
+	}
+	table
+	{
+		width:100%;
+		table-layout:fixed;
+	}
+	th
+	{
+		text-align: center;
+		height:25px;
+		word-wrap:break-word;
+	}
+	td
+	{
+		vertical-align: top;
+		height:75px;
+		word-wrap:break-word;
+	}
+	
+	</style>
+</head>
+<body>
+	<div id="header">
+			<p>
+			Calendar
+	</div>
+	<div id="tool">
+		<p>
+			<input type="text" id="loguser" value="Username">
+			<input type="password" id="logpass" autocomplete="off" value="Password">
+			<input type="submit" id="login_btn" value="Log In">
+			<input type="submit" id="register_btn" value="Register">
+		</p>
+		<p>
+			<input type="submit" id="logout_btn" value="Log Out">	
+		</p>
+		<p>
+			<input type="text" id="new_event_name" value="Event Name">
+			<input type="text" id="new_event_category" value="Event Category">
+			<input type="date" id="new_event_date">
+			<input type="time" id="new_event_time">
+			<input type="submit" id="new_event_btn" value="Add New Event">
+		</p>
+		<div id="categories">
+			
+		</div>
+	</div>
+	<div id="month_buttons">
+			<input type="submit" id="prev_month_btn" value="Previous Month">
+			<input type="submit" id="next_month_btn" value="Next Month">
+	</div>
+
+	<div id="month">
+			<output id="current"> Should say current month </output>
+	</div>
+
+	<div id="main">
+		<p>
+			<table	border="1"; >
+				<tr>
+					<th>Sunday</th>
+					<th>Monday</th>
+					<th>Tuesday</th>
+					<th>Wednesday</th>
+					<th>Thursday</th>
+					<th>Friday</th>
+					<th>Saturday</th>
+				</tr>
+				<tr>
+					<td><output id="Box1"></output></br>
+						<output id="Cont1"></output></td>
+					<td><output id="Box2"></output></br>
+						<output id="Cont2"></output></td>
+					<td><output id="Box3"></output></br>
+						<output id="Cont3"></output></td>
+					<td><output id="Box4"></output></br>
+						<output id="Cont4"></output></td>
+					<td><output id="Box5"></output></br>
+						<output id="Cont5"></output></td>
+					<td><output id="Box6"></output></br>
+						<output id="Cont6"></output></td>
+					<td><output id="Box7"></output></br>
+						<output id="Cont7"></output></td>
+				</tr>
+				<tr>
+					<td><output id="Box8"></output></br>
+						<output id="Cont8"></output></td>
+					<td><output id="Box9"></output></br>
+						<output id="Cont9"></output></td>
+					<td><output id="Box10"></output></br>
+						<output id="Cont10"></output></td>
+					<td><output id="Box11"></output></br>
+						<output id="Cont11"></output></td>
+					<td><output id="Box12"></output></br>
+						<output id="Cont12"></output></td>
+					<td><output id="Box13"></output></br>
+						<output id="Cont13"></output></td>
+					<td><output id="Box14"></output></br>
+						<output id="Cont14"></output></td>
+				</tr>
+				<tr>
+					<td><output id="Box15"></output></br>
+						<output id="Cont15"></output></td>
+					<td><output id="Box16"></output></br>
+						<output id="Cont16"></output></td>
+					<td><output id="Box17"></output></br>
+						<output id="Cont17"></output></td>
+					<td><output id="Box18"></output></br>
+						<output id="Cont18"></output></td>
+					<td><output id="Box19"></output></br>
+						<output id="Cont19"></output></td>
+					<td><output id="Box20"></output></br>
+						<output id="Cont20"></output></td>
+					<td><output id="Box21"></output></br>
+						<output id="Cont21"></output></td>
+				</tr>
+				<tr>
+					<td><output id="Box22"></output></br>
+						<output id="Cont22"></output></td>
+					<td><output id="Box23"></output></br>
+						<output id="Cont23"></output></td>
+					<td><output id="Box24"></output></br>
+						<output id="Cont24"></output></td>
+					<td><output id="Box25"></output></br>
+						<output id="Cont25"></output></td>
+					<td><output id="Box26"></output></br>
+						<output id="Cont26"></output></td>
+					<td><output id="Box27"></output></br>
+						<output id="Cont27"></output></td>
+					<td><output id="Box28"></output></br>
+						<output id="Cont28"></output></td>
+				</tr>
+				<tr>
+					<td><output id="Box29"></output></br>
+						<output id="Cont29"></output></td>
+					<td><output id="Box30"></output></br>
+						<output id="Cont30"></output></td>
+					<td><output id="Box31"></output></br>
+						<output id="Cont31"></output></td>
+					<td><output id="Box32"></output></br>
+						<output id="Cont32"></output></td>
+					<td><output id="Box33"></output></br>
+						<output id="Cont33"></output></td>
+					<td><output id="Box34"></output></br>
+						<output id="Cont34"></output></td>
+					<td><output id="Box35"></output></br>
+						<output id="Cont35"></output></td>
+				</tr>
+				<tr>
+					<td><output id="Box36"></output></br>
+					<output id="Cont36"></output></td>
+					<td><output id="Box37"></output></br>
+					<output id="Cont37"></output></td>
+					<td><output id="Box38"></output></br>
+					<output id="Cont38"></output></td>
+					<td><output id="Box39"></output></br>
+					<output id="Cont39"></output></td>
+					<td><output id="Box40"></output></br>
+					<output id="Cont40"></output></td>
+					<td><output id="Box41"></output></br>
+					<output id="Cont41"></output></td>
+					<td><output id="Box42"></output></br>
+					<output id="Cont42"></output></td>
+				</tr>
+			</table>
+		</p>
+	</div>
+
+
+	<script type="text/javascript">
+	
+	(function(){Date.prototype.deltaDays=function(c){return new Date(this.getFullYear(),this.getMonth(),this.getDate()+c)};Date.prototype.getSunday=function(){return this.deltaDays(-1*this.getDay())}})();
+	
+	function Week(c){this.sunday=c.getSunday();
+		this.nextWeek=function(){return new Week(this.sunday.deltaDays(7))};
+		this.prevWeek=function(){return new Week(this.sunday.deltaDays(-7))};
+		this.contains=function(b){return this.sunday.valueOf()===b.getSunday().valueOf()};
+		this.getDates=function(){for(var b=[],a=0;7>a;a++)b.push(this.sunday.deltaDays(a));return b}
+	}
+	function Month(c,b){this.year=c;this.month=b;
+		this.nextMonth=function(){return new Month(c+Math.floor((b+1)/12),(b+1)%12)};
+		this.prevMonth=function(){return new Month(c+Math.floor((b-1)/12),(b+11)%12)};
+		this.getDateObject=function(a){return new Date(this.year,this.month,a)};
+		this.getWeeks=function(){var a=this.getDateObject(1),b=this.nextMonth().getDateObject(0),c=[],a=new Week(a);
+		for(c.push(a);
+			!a.contains(b);
+			)a=a.nextWeek(),c.push(a);
+			return c}
+	};
+	
+	
+	// For our purposes, we can keep the current month in a variable in the global scope
+	var currentMonth = new Month(2015, 9); // October 2015
+	var userID = "";
+	var loggedin = false;
+	var token;
+	
+	var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+	
+	
+	//NEXT MONTH BUTTON
+	document.getElementById("next_month_btn").addEventListener("click", function(event){
+		currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
+		updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+		//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+		document.getElementById("current").textContent = monthNames[currentMonth.month]+" "+currentMonth.year;
+	}, false);
+	
+	//PREVIOUS MONTH BUTTON
+	document.getElementById("prev_month_btn").addEventListener("click", function(event){
+		currentMonth = currentMonth.prevMonth()
+		updateCalendar(); 
+		document.getElementById("current").textContent = monthNames[currentMonth.month]+" "+currentMonth.year;
+	}, false);
+	
+	//UPDATES DATES & BUTTONS
+	document.addEventListener("DOMContentLoaded", function(){
+		updateCalendar();
+		//loadCat();
+		document.getElementById("current").textContent = monthNames[currentMonth.month]+" "+currentMonth.year;
+	
+	}, false);
+	
+	function updateCalendar(){ //NEEDS UPDATE EVENTS
+		
+		//alert(loggedin + ": " + userID);
+		
+		//IF LOGGED IN, HIDE LOG IN. OTHERWISE HIDE LOG OUT
+		//MAKE IF SESSION EXISTS loggedin = true
+		if (loggedin==true){
+			document.getElementById("login_btn").style.visibility = "hidden";
+			document.getElementById("loguser").style.visibility = "hidden";
+			document.getElementById("logpass").style.visibility = "hidden";
+			document.getElementById("register_btn").style.visibility = "hidden";
+			document.getElementById("logout_btn").style.visibility = "visible";
+			document.getElementById("new_event_btn").style.visibility = "visible";
+			document.getElementById("new_event_category").style.visibility = "visible";
+			document.getElementById("new_event_name").style.visibility = "visible";
+			document.getElementById("new_event_date").style.visibility = "visible";
+			document.getElementById("new_event_time").style.visibility = "visible";
+		} else {
+			document.getElementById("login_btn").style.visibility = "visible";
+			document.getElementById("loguser").style.visibility = "visible";
+			document.getElementById("logpass").style.visibility = "visible";
+			document.getElementById("register_btn").style.visibility = "visible";
+			document.getElementById("logout_btn").style.visibility = "hidden";
+			document.getElementById("new_event_btn").style.visibility = "hidden";
+			document.getElementById("new_event_category").style.visibility = "hidden";
+			document.getElementById("new_event_name").style.visibility = "hidden";
+			document.getElementById("new_event_date").style.visibility = "hidden";
+			document.getElementById("new_event_time").style.visibility = "hidden";
+		}
+		
+		document.getElementById("categories").innerHTML = "Categories: <br>";
+		
+		var weeks = currentMonth.getWeeks();
+		for(i=1;i<43;i++){
+			document.getElementById("Box"+i).textContent = "";
+			document.getElementById("Cont"+i).innerHTML = "";
+		}
+		i = 1
+		var days = weeks[0].getDates();
+		var str = String(days[6]);
+		splitstr = str.split(" ");
+		currMon = splitstr[1];
+		
+		for(var w in weeks){
+			var days = weeks[w].getDates();
+			var j;
+		
+			for(j=0;j<7;j++){
+				str = String(days[j]);
+				splitstr = str.split(" ");
+				mon = splitstr[1];
+				if (mon == currMon){
+					res = str.match(/\d\d/);
+					if (res !== null){
+						document.getElementById("Box"+i).textContent = res;
+					}
+				}
+				i += 1;
+			}
+		}
+		
+		if (userID != "") {
+			$.ajax({
+				type: "POST",
+				dataType: "JSON",
+				url: "GetEvents.php",
+				data: "current_year=" + currentMonth.year + "&current_month=" + currentMonth.month + "&userID=" + userID,
+				success: function(data, status, xhr) {
+					//alert("Get events success");
+					for(j = 1;j < 43;j++){
+						document.getElementById("Cont"+j).innerHTML = "";
+					}
+					var eventCategories = [];
+					for (i = 0; i < data.length; i++) {
+						var eventDate = data[i].date;
+						var onlyDate = eventDate.match(/\d\d$/);
+						if ($.inArray(data[i].category, eventCategories) == -1) {
+							eventCategories.push(data[i].category);
+						}
+						//console.log(onlyDate);
+						var editID = data[i].id;
+						for(j = 1;j < 43;j++){
+							//var eventDataDate;
+							if (onlyDate == document.getElementById("Box"+j).textContent) {
+								//console.log(editID);
+								document.getElementById("Cont"+j).innerHTML += "<div id='" + editID + "'>" + data[i].time + " - " + data[i].name + "</div>";
+							}
+						}
+					}
+					
+					console.log(eventCategories);
+					
+					for (var c of eventCategories) {
+						document.getElementById("categories").innerHTML += c + "<input type='checkbox' class='category' id=" + c + " value=" + c + " checked=true ><br>" ;
+					}
+					
+					for (i = 0; i < data.length; i++) {
+						
+						//console.log(editID);
+						//console.log(editName + " " + editTime + " " + editDate + " " + editCategory);
+						document.getElementById(data[i].id).addEventListener("click", function(event) {
+							//console.log(editName + " " + editTime + " " + editDate + " " + editCategory);
+							
+							var pulledID = event.target.id;
+							//alert(pulledID);
+							
+							for (j = 0; j < data.length; j++) {
+								if (pulledID == data[j].id) {
+									var pulledName = data[j].name;
+									var pulledTime = data[j].time;
+									var pulledDate = data[j].date;
+									var pulledCategory = data[j].category;
+								}
+							}
+							
+							document.getElementById("edit_event_name").setAttribute("value", pulledName); //NOPE
+							document.getElementById("edit_event_category").setAttribute("value", pulledCategory);
+							document.getElementById("edit_event_time").setAttribute("value", pulledTime); //NOPE
+							document.getElementById("edit_event_date").setAttribute("value", pulledDate);
+							
+							document.getElementById("edit_event_btn").addEventListener("click", function() {
+								var editeventname = document.getElementById("edit_event_name").value;
+								var editeventcategory = document.getElementById("edit_event_category").value;
+								var editeventtime = document.getElementById("edit_event_time").value;
+								var editeventdate = document.getElementById("edit_event_date").value;
+								console.log(editeventname + " " + editeventtime + " " + editeventdate + " " + editeventcategory + " " + editID);
+								$.ajax({
+									type: "POST",
+									dataType: "JSON",
+									url: "EditEvent.php",
+									data: "eventID=" + pulledID + "&eventname=" + editeventname + "&eventdate=" + editeventdate + "&eventtime=" +
+										editeventtime + "&eventcategory=" + editeventcategory + "&token=" + token,
+									success: function(data) {
+										if (data.success) {
+											updateCalendar();
+											alert("Event edited!");
+										} else {
+											alert("Event not edited: " + data.message);
+										}
+										$("#edit_event_dialog").dialog('close');
+									},
+									error: function(xhr, status, error) {
+										alert("Event REALLY not edited: " + xhr.responseText);
+										$("#edit_event_dialog").dialog('close');
+									}
+								});
+							}, false);
+							var old_element = document.getElementById("del_event_btn");
+							var new_element = old_element.cloneNode(true);
+							old_element.parentNode.replaceChild(new_element, old_element);
+							document.getElementById("del_event_btn").addEventListener("click", function() {
+								//console.log(editeventname + " " + editeventtime + " " + editeventdate + " " + editeventcategory + " " + editID);
+								$.ajax({
+									type: "POST",
+									dataType: "JSON",
+									url: "DeleteEvent.php",
+									data: "eventID=" + pulledID + "&token=" + token,
+									success: function(data) {
+										if (data.success) {
+											updateCalendar();
+											alert("Event Deleted!");
+										} else {
+											alert("Event not deleted: " + data.message);
+										}
+										$("#edit_event_dialog").dialog('close');
+									},
+									error: function(xhr, status, error) {
+										alert("Event REALLY not deleted: " + xhr.responseText);
+										$("#edit_event_dialog").dialog('close');
+									}
+								});
+							}, false);
+							
+							$("#edit_event_dialog").dialog();
+						}, false);
+					}
+					
+				},
+				error: function(xhr, status, error) {
+					alert("Get events failed: \n" + xhr.responseText);
+				}
+			});
+		}
+
+	}
+	function loadCat() {
+		if (userID != "") {
+			$.ajax({
+				type: "POST",
+				dataType: "JSON",
+				url: "GetEvents.php",
+				data: "current_year=" + currentMonth.year + "&current_month=" + currentMonth.month + "&userID=" + userID,
+				success: function(data, status, xhr) {
+					alert(data + " " + status);
+					var eventCategories = [];
+					for (i = 0; i < data.length; i++) {
+						if ($.inArray(data[i].category, eventCategories) == -1) {
+							eventCategories.push(data[i].category);
+						}
+					}
+					console.log(eventCategories);
+					for (var c of eventCategories) {
+						alert(c);
+						//document.getElementById("categories").innerHTML += c + "<input type='checkbox' class='category' id=" + c + " value=" + c + " checked=true ><br>" ;
+						document.getElementById(c).addEventListener("change", function(event){
+							if (!event.target.checked) {
+								for (i = 0; i < data.length; i++) {
+									if (data[i].category == event.target.id) {
+										document.getElementById(data[i].eventID).remove();
+									}
+								}
+							}
+							else {
+								for (i = 0; i < data.length; i++) {
+									if (data[i].category == event.target.id) {
+										document.getElementById("Cont"+j).innerHTML += "<div id='" + data[i].eventID + "'>" + data[i].time + " - " + data[i].name + "</div>";
+									}
+								}
+							}
+						}, true);
+					}
+					
+					for (i = 0; i < data.length; i++) {
+						
+						
+					}
+					
+				},
+				error: function(xhr, status, error) {
+					alert("Get events failed: \n" + xhr.responseText);
+				}
+			});
+		}
+	}
+	
+	//LOG IN STUFF
+	var xmlDocument;
+	
+	function userLogin() {
+	
+		loggedin = false;
+		var loguser = document.getElementById("loguser").value;
+		var logpass = document.getElementById("logpass").value;
+	
+		$.ajax({
+			type: "POST",
+			dataType: "JSON",
+			url: "LoginUser.php",
+			data: "username=" + loguser + "&password=" + logpass,
+			success: function(data, status, xhr) {
+				if (data.success == true) {
+					loggedin = true;
+					userID = data.userID;
+					updateCalendar();
+					token = data.token;
+					alert("Login was successful!");
+				}
+				else {
+					alert("Code ran but login failed: " + data.message);
+				}
+			},
+			error: function(xhr, status, error) {
+				loggedin = false;
+				updateCalendar();
+				alert("Login failed: " + xhr.responseText);
+			}
+		});
+		
+	}
+	
+	document.getElementById("login_btn").addEventListener("click", userLogin, false);
+	
+	document.getElementById("register_btn").addEventListener("click", function() {
+		
+		//alert("userRegister function called");
+		
+		var reguser = document.getElementById("loguser").value;
+		var regpass = document.getElementById("logpass").value;
+		
+		$.ajax({
+			type: "POST",
+			dataType: "JSON",
+			url: "RegisterUser.php",
+			data: "username=" + reguser + "&password=" + regpass,
+			success: function(data) {
+				if (data.success) {
+					alert("Registration was successful!");
+					userLogin();
+				}
+				else {
+					alert ("Registration failed: " + data.message);
+				}
+			},
+			error: function(xhr, status, error) {
+				loggedin = false;
+				//updateCalendar();
+				alert("Registration failed.")
+			}
+		});
+		
+	}, false);
+	
+	document.getElementById("logout_btn").addEventListener("click", function() {
+		loggedin = false;
+		userID = "";
+		updateCalendar();
+		alert("Logout successful!");
+	}, false);
+	
+	document.getElementById("new_event_btn").addEventListener("click", function() {
+		var neweventname = document.getElementById("new_event_name").value;
+		//var neweventname = "dummystring";
+		var neweventcategory = document.getElementById("new_event_category").value;
+		var neweventdate = document.getElementById("new_event_date").value;
+		var neweventtime = document.getElementById("new_event_time").value;
+		
+		$.ajax({
+			type: "POST",
+			dataType: "JSON",
+			url: "NewEvent.php",
+			data: "eventname=" + neweventname + "&eventdate=" + neweventdate + "&eventtime=" +
+				neweventtime + "&eventcategory=" + neweventcategory + "&user_id=" + userID,
+			success: function(data) {
+				if (data.success) {
+					updateCalendar();
+					alert("Event added!");
+				} else {
+					alert("Event not added: " + data.message);
+				}
+			},
+			error: function(xhr, status, error) {
+				alert("Event REALLY not added: " + xhr.responseText);
+			}
+		});
+	}, false);
+
+	
+	</script>
+	
+	<div id="edit_event_dialog" title="Edit Event">
+		<input type="text" id="edit_event_name">
+		<input type="text" id="edit_event_category">
+		<input type="date" id="edit_event_date">
+		<input type="time" id="edit_event_time">
+		<input type="submit" id="edit_event_btn" value="Save Changes">
+		<input type="submit" id="del_event_btn" value="Delete Event">
+	</div>
+	
+	</div>
+</body>
+</html>
